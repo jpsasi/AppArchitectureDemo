@@ -16,3 +16,9 @@ struct FavoritesState {
     self.activities = activities
   }
 }
+
+enum FavoritesAction {
+  case addToFavorites(Int)
+  case removeFromFavorites(Int)
+}
+

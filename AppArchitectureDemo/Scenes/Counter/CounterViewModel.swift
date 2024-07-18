@@ -10,7 +10,7 @@ import SwiftUICore
 
 @Observable
 class CounterViewModel {
-  var state: CounterState
+  public private(set) var state: CounterState
   let repository: CounterRepository
   var factResult: String?
   var showAlert: Binding<Bool> {
@@ -22,12 +22,27 @@ class CounterViewModel {
           self.factResult = nil
         }
       }
-
     }
   }
+  
   init(repository: CounterRepository) {
     self.state = repository.getCounterState()
     self.repository = repository
+  }
+  
+  func handleAction(_ action: CounterAction) {
+    switch action {
+      case .incrementButtonTapped:
+        incrementCounter()
+      case .decrementButtonTapped:
+        decrementCounter()
+      case .fetchNumberFact:
+        fetchNumberFact()
+      case .fetchedNumberFact(let string):
+        self.factResult = string
+      case .toggleFavoriteButtonTapped:
+        toggleFavorite()
+    }
   }
   
   func incrementCounter() {

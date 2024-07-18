@@ -13,6 +13,13 @@ struct DataStore {
   public private(set) var activities: [ActivityFeed]
 
   static var shared: DataStore = .init()
+  static func testDataStore(
+    counter: Int,
+    favorites: [Int],
+    activities: [ActivityFeed]
+  ) -> Self {
+    return Self.init(counter: counter, favorites: favorites, activities: activities)
+  }
   
   private init(
     counter: Int = 0,

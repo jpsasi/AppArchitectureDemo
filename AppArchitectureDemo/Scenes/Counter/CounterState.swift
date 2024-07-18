@@ -18,3 +18,11 @@ struct CounterState {
     self.activities = activities
   }
 }
+
+enum CounterAction {
+  case incrementButtonTapped
+  case decrementButtonTapped
+  case fetchNumberFact
+  case fetchedNumberFact(String)
+  case toggleFavoriteButtonTapped
+}
