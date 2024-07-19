@@ -15,12 +15,12 @@ struct CounterView: View {
     VStack {
       HStack {
         button(with: "minus") {
-          viewModel.decrementCounter()
+          viewModel.handleAction(.decrementButtonTapped)
         }
         Text(viewModel.state.counter.description)
           .font(.title)
         button(with: "plus") {
-          viewModel.incrementCounter()
+          viewModel.handleAction(.incrementButtonTapped)
         }
       }
       Button {
@@ -30,7 +30,7 @@ struct CounterView: View {
           .font(.title)
       }
       Button("Number Fact") {
-        viewModel.fetchNumberFact()
+        viewModel.handleAction(.fetchNumberFact)
       }
       .font(.title)
     }

@@ -37,7 +37,9 @@ class CounterViewModel {
       case .decrementButtonTapped:
         decrementCounter()
       case .fetchNumberFact:
-        fetchNumberFact()
+        Task {
+          try await fetchNumberFact()
+        }
       case .fetchedNumberFact(let string):
         self.factResult = string
       case .toggleFavoriteButtonTapped:
@@ -45,19 +47,19 @@ class CounterViewModel {
     }
   }
   
-  func incrementCounter() {
+  private func incrementCounter() {
     state.counter += 1
   }
   
-  func decrementCounter() {
+  private func decrementCounter() {
     state.counter -= 1
   }
   
-  func resetCounter() {
+  private func resetCounter() {
     state.counter = 0
   }
   
-  func toggleFavorite() {
+  private func toggleFavorite() {
     if let index = state.favorites.firstIndex(of: state.counter) {
       let num = state.favorites[index]
       state.activities.append(.init(activity: .remove(num), date: .now))
@@ -82,12 +84,8 @@ class CounterViewModel {
     repository.setCounterState(state)
   }
   
-  func fetchNumberFact() {
-    Task {
-      let result = await repository.fetchNumberFact(num: state.counter)
-      Task { @MainActor in
-        self.factResult = result
-      }
-    }
+  func fetchNumberFact() async throws {
+    let result = await repository.fetchNumberFact(num: state.counter)
+    self.factResult = result
   }
 }

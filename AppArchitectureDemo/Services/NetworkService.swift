@@ -7,7 +7,12 @@
 
 import Foundation
 
-class NetworkService {
+
+protocol NetworkService {
+  func fetchNumberFact(num: Int) async -> String
+}
+
+class AppArchDemoNetworkService: NetworkService {
 
   func fetchNumberFact(num: Int) async -> String {
     do {

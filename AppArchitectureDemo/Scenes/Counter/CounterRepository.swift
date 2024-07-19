@@ -12,7 +12,7 @@ class CounterRepository {
   
   init(
     dataStore: DataStore = .shared,
-    networkService: NetworkService = .init()
+    networkService: NetworkService = AppArchDemoNetworkService()
   ) {
     self.dataStore = dataStore
     self.networkService = networkService

@@ -73,4 +73,28 @@ struct CounterViewModelTests {
     viewModel.handleAction(.toggleFavoriteButtonTapped)
     #expect(viewModel.state.favorites == [1,3,2])
   }
+  
+  @Test func fetchNumberFact() async throws {
+    
+    class MockNetworkService: NetworkService {
+      func fetchNumberFact(num: Int) async -> String {
+        return "\(num) is a good number"
+      }
+    }
+    let networkService = MockNetworkService()
+    let dataStore = DataStore.testDataStore(
+      counter: 100,
+      favorites: [],
+      activities: []
+    )
+    let viewModel = CounterViewModel(
+      repository: CounterRepository(
+        dataStore: dataStore,
+        networkService: networkService
+      )
+    )
+
+    try await viewModel.fetchNumberFact()
+    #expect(viewModel.factResult == "100 is a good number")
+  }
 }
