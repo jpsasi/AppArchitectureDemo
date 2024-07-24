@@ -7,58 +7,53 @@
 
 import Foundation
 
-struct DataStore {
-  public private(set) var counter: Int
-  public private(set) var favorites: [Int]
-  public private(set) var activities: [ActivityFeed]
-
-  static var shared: DataStore = .init()
-  static func testDataStore(
-    counter: Int,
-    favorites: [Int],
-    activities: [ActivityFeed]
-  ) -> Self {
-    return Self.init(counter: counter, favorites: favorites, activities: activities)
-  }
+class DataStoreProvider {
   
-  private init(
-    counter: Int = 0,
-    favorites: [Int] = [],
-    activities:[ActivityFeed] = []
-  ) {
-    self.counter = counter
-    self.favorites = favorites
-    self.activities = activities
+  struct DataStore {
+    var counter: Int
+    var favorites: [Int]
+    var activities: [ActivityFeed]
+    
+    init(counter: Int = 0, favorites: [Int] = [], activities: [ActivityFeed] = []) {
+      self.counter = counter
+      self.favorites = favorites
+      self.activities = activities
+    }
   }
-
+  private var dataStore: DataStore = DataStore()
+  
+  private init() {}
+  static var shared = DataStoreProvider()
+  
   func getCounterState() -> CounterState {
     return CounterState(
-      counter: counter,
-      favorites: favorites,
-      activities: activities
+      counter: dataStore.counter,
+      favorites: dataStore.favorites,
+      activities: dataStore.activities
     )
   }
   
-  mutating func setCounterState(_ state: CounterState) {
-    self.counter = state.counter
-    self.favorites = state.favorites
-    self.activities = state.activities
+  func setCounterState(_ state: CounterState) {
+    dataStore.counter = state.counter
+    dataStore.favorites = state.favorites
+    dataStore.activities = state.activities
   }
-  
+
   func getFavoritesState() -> FavoritesState {
-    return .init(favorites: favorites, activities: activities)
+    return .init(favorites: dataStore.favorites,
+                 activities: dataStore.activities)
   }
   
-  mutating func setFavoritesState(_ state: FavoritesState) {
-    self.favorites = state.favorites
-    self.activities = state.activities
+  func setFavoritesState(_ state: FavoritesState) {
+    dataStore.favorites = state.favorites
+    dataStore.activities = state.activities
   }
   
   func getActivityState() -> ActivityState {
-    return .init(activities: activities)
+    return .init(activities: dataStore.activities)
   }
   
-  mutating func setActivityState(_ state: ActivityState) {
-    activities = state.activities
+  func setActivityState(_ state: ActivityState) {
+    dataStore.activities = state.activities
   }
 }

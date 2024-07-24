@@ -7,11 +7,11 @@
 
 class CounterRepository {
   
-  var dataStore: DataStore
+  var dataStore: DataStoreProvider
   let networkService: NetworkService
   
   init(
-    dataStore: DataStore = .shared,
+    dataStore: DataStoreProvider = .shared,
     networkService: NetworkService = AppArchDemoNetworkService()
   ) {
     self.dataStore = dataStore

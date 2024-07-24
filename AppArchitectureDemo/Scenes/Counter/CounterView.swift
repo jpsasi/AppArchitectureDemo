@@ -24,7 +24,7 @@ struct CounterView: View {
         }
       }
       Button {
-        viewModel.toggleFavorite()
+        viewModel.handleAction(.toggleFavoriteButtonTapped)
       } label: {
         Image(systemName: viewModel.isFavorite() ? "heart.fill" : "heart")
           .font(.title)

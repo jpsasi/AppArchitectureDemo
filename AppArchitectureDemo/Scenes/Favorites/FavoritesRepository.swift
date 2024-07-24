@@ -7,9 +7,9 @@
 
 class FavoritesRepository {
   
-  var dataStore: DataStore
+  var dataStore: DataStoreProvider
   
-  init(dataStore: DataStore = .shared) {
+  init(dataStore: DataStoreProvider = .shared) {
     self.dataStore = dataStore
   }
 
