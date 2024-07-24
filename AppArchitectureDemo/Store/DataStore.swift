@@ -24,17 +24,16 @@ class DataStoreProvider {
   
   private init() {}
   static var shared = DataStoreProvider()
-  func testDataStore(
+  static func initializeDataStore(
     counter: Int,
     favorites: [Int],
     activities: [ActivityFeed]
   ) -> DataStoreProvider {
-    dataStore = DataStore(
-      counter: counter,
-      favorites: favorites,
-      activities: activities
-    )
-    return self
+    let provider = DataStoreProvider()
+    provider.dataStore.counter = counter
+    provider.dataStore.favorites = favorites
+    provider.dataStore.activities = activities
+    return provider
   }
   
   func getCounterState() -> CounterState {

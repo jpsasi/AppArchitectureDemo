@@ -11,7 +11,7 @@ import Testing
 struct CounterViewModelTests {
   
   @Test func incrementCounter() async throws {
-    let dataStore = DataStoreProvider.shared.testDataStore(
+    let dataStore = DataStoreProvider.initializeDataStore(
       counter: 100,
       favorites: [],
       activities: []
@@ -27,7 +27,7 @@ struct CounterViewModelTests {
   }
   
   @Test func decrementCounter() async throws {
-    let dataStore = DataStoreProvider.shared.testDataStore(
+    let dataStore = DataStoreProvider.initializeDataStore(
       counter: 100,
       favorites: [],
       activities: []
@@ -43,7 +43,7 @@ struct CounterViewModelTests {
   }
 
   @Test func incrementAndDecrementCounter() async throws {
-    let dataStore = DataStoreProvider.shared.testDataStore(
+    let dataStore = DataStoreProvider.initializeDataStore(
       counter: 100,
       favorites: [],
       activities: []
@@ -59,7 +59,7 @@ struct CounterViewModelTests {
   }
 
   @Test func toggleFavorite() async throws {
-    let dataStore = DataStoreProvider.shared.testDataStore(
+    let dataStore = DataStoreProvider.initializeDataStore(
       counter: 2,
       favorites: [1,2,3],
       activities: []
@@ -82,7 +82,7 @@ struct CounterViewModelTests {
       }
     }
     let networkService = MockNetworkService()
-    let dataStore = DataStoreProvider.shared.testDataStore(
+    let dataStore = DataStoreProvider.initializeDataStore(
       counter: 100,
       favorites: [],
       activities: []
